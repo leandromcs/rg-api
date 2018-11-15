@@ -8,6 +8,7 @@ import br.com.bancogeral.BancoGeral.service.dto.CivilDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,12 @@ public class Service {
         civils.add(civil);
         civils.add(civil2);
         civils.add(civil3);
+
+        for (Civil c: civils) {
+            if(c == null){
+                civils.remove(c);
+            }
+        }
         return civils;
     }
 
@@ -49,16 +56,26 @@ public class Service {
         Civil civil2 = this.banco2Repository.consultarPorRGs(dto.getNome(), dto.getDataNascimento(), dto.getNomeMae());
         Civil civil3 = this.banco3Repository.consultarPorRGs(dto.getNome(), dto.getDataNascimento(), dto.getNomeMae());
 
-        if(civil.equals(null) && civil2.equals(null) && civil3.equals(null)){
+        if(civil == null && civil2 == null && civil3 == null){
             return false;
         } else {
             return true;
         }
     }
 
-//    public Civil retornaRGMaisAntigo(){
-//
-//    }
+    public Civil retornaRGMaisAntigo(CivilDTO dto){
+        Civil civil = this.banco1Repository.consultarPorRGs(dto.getNome(), dto.getDataNascimento(), dto.getNomeMae());
+        Civil civil2 = this.banco2Repository.consultarPorRGs(dto.getNome(), dto.getDataNascimento(), dto.getNomeMae());
+        Civil civil3 = this.banco3Repository.consultarPorRGs(dto.getNome(), dto.getDataNascimento(), dto.getNomeMae());
+
+        List<Civil> civils = new ArrayList<>();
+        civils.add(civil2);
+        civils.add(civil3);
+        civils.add(civil);
+
+        Collections.sort(civils);
+        return civils.get(0);
+    }
 
 
 }

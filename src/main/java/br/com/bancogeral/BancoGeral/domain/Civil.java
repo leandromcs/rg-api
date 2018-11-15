@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.util.Date;
 @Entity
 @Table(name = "tb_registro_geral")
-public class Civil {
+public class Civil implements Comparable<Civil>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,5 +89,16 @@ public class Civil {
 
     public void setDataRegistro(Date dataRegistro) {
         this.dataRegistro = dataRegistro;
+    }
+
+    @Override
+    public int compareTo(Civil c) {
+        if(this.dataRegistro.before(c.dataRegistro)){
+            return -1;
+        }
+        if(this.dataRegistro.after(c.dataRegistro)){
+            return 1;
+        }
+        return 0;
     }
 }
