@@ -15,16 +15,22 @@ public class Civil {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+
     @Column(name = "registro_geral")
     private String rg;
+
     @Column(name = "nme_nome")
     private String nome;
+
     @Column(name = "dta_nascimento")
     private Date dataNascimento;
+
     @Column(name = "nme_pai")
     private String nomePai;
+
     @Column(name = "nme_mae")
     private String nomeMae;
+
     @Column(name = "dta_registro")
     private Date dataRegistro;
 
